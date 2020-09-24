@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,viewport-fit=cover,user-scalable=no">
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+			}
+			html,body{
+				width:100%;
+				height:100%;
+			}
+			html{
+				font-size:20px;
+			}
+			main,section{
+				display:block;
+			}
+			main{
+				width:30rem;
+				height:50rem;
+				padding:1rem;
+				margin:2rem auto 0;
+				box-shadow:0 0 0.5rem 0.5rem #666;
+				border-radius:1rem;
+				font-size:0.7rem;
+				font-family:微软雅黑;
+			}
+			h3{
+				width:100%;
+				height:2rem;
+				text-align:center;
+				line-height:2rem;
+				background-color:black;
+				color:white;
+				margin:0.5rem 0;
+			}
+			ul{
+				list-style-position:inside;
+				padding:1rem;
+			}
+			ul>li{
+				margin:0.5rem 0;
+			}
+			button{
+				position:fixed;
+				top:50%;
+				left:50%;
+				transform:translate(-50%,-50%);
+				background-color:deepskyblue;
+				color:white;
+				width:3rem;
+				height:1.5rem;
+				text-align:center;
+				line-height:1.5rem;
+				border-style:none;
+				cursor:pointer;
+			}
+		</style>
+		<style>
+			@meida (max-width:450px){
+				main{
+					width:auto;
+					height:auto;
+					padding:0;
+					margin:0;
+				}
+			}
+		</style>
+		<title>函数防抖</title>
+	</head>
+	<body>
+		<main>
+			<button>click</button>
+		</main>
+		<script type="text/javascript">
+			// 防抖函数的代码
+			function debounce(fn, delay){
+				// 创建一个标记用来存放定时器的返回值
+				var timeout = null;
+				var time = arguments[1];
+				return function(){
+					// 每当用户输入的时候，把前一个setTimeout clear 掉
+					clearTimeout(timeout);
+					// 创建新的setTimeout ,这样就能保证interval间隔内如果持续触发，就不会执行fn
+					timeout = setTimeout(function(){
+						fn(time);
+					},delay)
+				}
+			}
+			
+			function handle(){
+				console.log('防抖:',Math.random());
+			}
+			// 滚动事件
+			window.addEventListener('scroll',debounce(handle, 500),false);
+			function handle1(){
+				console.log('按钮被点击',Math.random());
+			}
+			// 按钮点击事件
+			var btn = document.querySelector('button');
+			btn.addEventListener('click',debounce(handle1, 1000),false)
+		</script>
+	</body>
+</html>
