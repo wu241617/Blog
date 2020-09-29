@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>冒泡排序</title>
+	</head>
+	<body>
+		<script>
+			function Sort(arr){
+				for(var i=0; i<arr.length; i++){
+					for(var j=0; j<arr.length-i-1; j++){
+						if(arr[j] < arr[j+1]){
+							Swap(arr,j,j+1);
+						}
+					}
+				}
+				return arr;
+			}
+			function Swap(arr,x,y){
+				var temp = arr[x];
+				arr[x] = arr[y];
+				arr[y] = temp;
+			}
+			var arr = [34,56,76,43,21,14,65];
+			console.log(Sort(arr));
+		</script>
+	</body>
+</html>

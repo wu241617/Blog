@@ -60,10 +60,15 @@
 	<body>
 		<script type="text/javascript">
 			Function.prototype.myBind = function(context){
+				// context 代表，this指向要改变的目标对象
+				// 判断是不是函数
 				if(typeof this !== 'function'){
 					throw new TypeError('Error');
 				}
+				// 缓存this,此时this指向，要变换this指向的那个函数本身
 				var that = this;
+				// 取出函数参数，slice(1)提取从位置1开始的所有元素
+				// [...arguments] === [{obj},1,2]
 				var args = [...arguments].slice(1);
 				// 返回一个函数
 				return function F(){
@@ -73,6 +78,15 @@
 					return that.apply(context, args.concat(...arguments));
 				}
 			}
+			var name = 'window'
+			var obj = {
+				name:'obj'
+			};
+			function add(a,b){
+				console.log(a+b+' ,当前 this 指向: '+ this,this.name);
+			}
+			add(3,4);
+			add.myBind(obj,1,2)();
 		</script>
 	</body>
 </html>

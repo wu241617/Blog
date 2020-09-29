@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>插入排序</title>
+	</head>
+	<body>
+		<script>
+			function insertSort(arr){
+			//假设第0元素是有序序列，第1元素之后是无序的序列。从第1元素开始依次将无序序列的元素插入到有序序列中
+			    for(var i=1; i<arr.length;i++){
+			        if(arr[i]<arr[i-1]){
+			            //取出无序序列中需要插入的第i个元素
+			            var temp = arr[i];
+			            //定义有序中的最后一个位置
+			            var j = i-1;
+			            arr[i] = arr[j];
+			            //比较大小，找到插入的位置
+			            while(j>=0 && temp<arr[j]){
+			                arr[j+1] = arr[j];
+			                j--;
+			            };
+			            //插入
+			            arr[j+1] = temp;
+			        }
+			    }
+				return arr;
+			  }
+			var arr = [34,42,98,41,57,31,21,67];
+			console.log('========' + arr + '===========')
+			var result = insertSort(arr);
+			console.log(result);
+		</script>
+	</body>
+</html>

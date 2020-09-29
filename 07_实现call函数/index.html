@@ -60,18 +60,31 @@
 	<body>
 		<script type="text/javascript">
 			Function.prototype.myCall = function(context){
+				// context 是this将要改变指向的目标对象
 				var context = context || window;
 				// 给context添加一个属性
-				// getValue.call(a, 'TJH', '24') => a.fn = getValue
+				// 缓存 this ,此时this指向的原函数
 				context.fn = this;
-				// 将context后面的参数取出
+				// 将context后面的参数取出,slice(1)表示，从1开始取出后面全部元素
 				var args = [...arguments].slice(1);
-				// getValue.call(a, 'TJH', '24') => a.fn('TJH', '24')
 				var result = context.fn(...args);
 				// 删除fn
 				delete context.fn;
 				return result;
 			}
+			var name = 'xiner';
+			var obj = {
+				name:'wuhao'
+			}
+			function nowTime(){
+				var time = new Date();
+				return time.getHours()+' 时 ' + time.getMinutes()+' 分 ' + time.getSeconds() + ' 秒 ';
+			}
+			function playName(time){
+				console.log(time + ' , 欢迎 '+ this.name +' 登录系统！');
+			}
+			playName(nowTime());
+			playName.myCall(obj,nowTime());
 		</script>
 	</body>
 </html>

@@ -23,17 +23,16 @@
 				height:auto;
 				padding:1rem;
 				margin:2rem auto 0;
-				box-shadow:0 0 0.5rem 0.5rem #666;
 				border-radius:1rem;
+				box-shadow:0 0 0.5rem 0.5rem #666;
 				font-size:0.7rem;
 				font-family:微软雅黑;
 			}
 			h3{
 				width:100%;
 				height:2rem;
-				display:flex;
-				justify-content:center;
-				align-items:center;
+				text-align:center;
+				line-height:2rem;
 				background-color:black;
 				color:white;
 				margin:0.5rem 0;
@@ -41,9 +40,6 @@
 			ul{
 				list-style-position:inside;
 				padding:1rem;
-				overflow:hidden;
-				text-overflow:ellipsis;
-				white-space: nowrap;
 			}
 			ul>li{
 				margin:0.5rem 0;
@@ -59,34 +55,13 @@
 				}
 			}
 		</style>
-		<title>实现apply函数</title>
+		<title>JS数组提供的sort排序</title>
 	</head>
 	<body>
 		<script type="text/javascript">
-			Function.prototype.myApply = function(context){
-				// context 为this改变指向的目标对象
-				var context = context || window;
-				// 缓存原有的this,即原有this指向的原函数
-				context.fn = this;
-				var result;
-				// 判断是否传递函数参数
-				if(arguments[1]){
-					result = context.fn(...arguments[1]);
-				}else{
-					result = context.fn();
-				}
-				delete context.fn();
-				return result;
-			}
-			var name = 'wenyan';
-			var obj = {
-				name:'wuhao'
-			}
-			function showName(a,b){
-				console.log(a && b ? a+b +' ,欢迎 '+ this.name +' 同学的加入！' : '');
-			}
-			showName(10,20);
-			showName.myApply(obj,[1,2]);
+			var arr = [34,56,43,22,34,56,33,21,12,45];
+			arr.sort(function(a,b){return b-a;});
+			console.log(arr);
 		</script>
 	</body>
 </html>

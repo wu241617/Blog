@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>选择排序</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function Sort(arr){
+				// 外层循环，一共n-1趟
+				for(var i=0; i<arr.length; i++){
+					// 内层循环，每次找出剩余数组中最大值，插入到指定位置
+					if(i === 0){
+						var index = Max(arr);
+						arr = Swap(arr,index,i);
+					}else{
+						var newArr = arr.slice(i);
+						var index = Max(newArr);
+						arr = Swap(arr,index+i,i);
+					}
+				}
+			}
+			function Max(arr){
+				var max = arr[0];
+				for(var i=1; i<arr.length; i++){
+					if(arr[i] > max){
+						max = arr[i];
+					}
+				}
+				return arr.indexOf(max);
+			}
+			function Swap(arr,x,y){
+				var temp = arr[x];
+				arr[x] = arr[y];
+				arr[y] = temp;
+				return arr;
+			}
+			
+			var arr = [12,34,54,21,14,67,43];
+			console.log('====== ' + arr + ' ======')
+			Sort(arr);
+			console.log(arr);
+		</script>
+	</body>
+</html>

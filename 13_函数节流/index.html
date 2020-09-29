@@ -88,14 +88,15 @@
 			        setTimeout(() => { 
 			        // 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。
 			        // 当定时器没有执行的时候标记永远是false，在开头被return掉
-			            fn.apply(this, arguments);
+					console.log(arguments);
+			            fn.apply(this, arguments);// 让 fn的this指向被操作的DOM元素，并且用arguments,把时间参数对象e传过去，方便内部函数使用
 			            canRun = true;
 			        }, delay);
 			    };
 			}
-
-			function handle(){
-				console.log('按钮已经点击',Math.random());
+			
+			function handle(e){
+				console.log(e.screenX+' ,按钮已经点击',Math.random());
 			}
 			var btn = document.querySelector('button');
 			btn.addEventListener('click',throttle(handle,1000),false)
