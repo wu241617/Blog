@@ -59,6 +59,7 @@
 	</head>
 	<body>
 		<script>
+			console.log('=== Object.assign({},obj)方法 ===');
 			let obj = {
 				a:{
 					name: 'wuhao',
@@ -68,6 +69,48 @@
 			let newObj = Object.assign({},obj);
 			newObj.a.age = 18;
 			console.log(obj.a.age);
+			console.log('=== Array.prototype.concat()方法 ===');
+			let arr = [1,2,{name:'wuhao'}];
+			let newArr = arr.concat();
+			newArr[2].name = 'xiner';
+			console.log(arr[2].name);
+			console.log('=== Array.prototype.slice()方法 ===');
+			let arr1 = [12,34,{stuno:'1704240131'}];
+			let newArr1 = arr1.slice();
+			newArr1[2].stuno = '241617';
+			console.log(arr1[2].stuno);
+			console.log('=== ES6扩展运算符方法 ===');
+			let obj1 = {
+				a: 1,
+				arr: [2, 3]
+			}
+			var newObj1 = {...obj1};
+			newObj1.arr[1] = 24;
+			console.log(obj1.arr[1]);
+			console.log('=== 遍历赋值实现 ===');
+			function deepclone(obj){
+				// 只拷贝对象
+				if(typeof obj !== 'object') return;
+				// 根据obj的类型判断是新建一个数组还是对象
+				var newObj = obj instanceof Array ? [] : {};
+				// 遍历obj,并且判断是obj属性才拷贝
+				for(var key in obj){
+					if(obj.hasOwnProperty(key)){
+						newObj[key] = obj[key];
+					}
+				}
+				return newObj;
+			}
+			let obj2 = {
+				username: 'wuhao',
+				paddword: '241617',
+				b:{
+					c:2
+				}
+			}
+			let newObj2 = deepclone(obj2);
+			newObj2.b.c= "LinDa";
+			console.log(obj2.b.c);
 		</script>
 	</body>
 </html>

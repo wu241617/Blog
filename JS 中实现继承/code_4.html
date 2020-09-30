@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>拷贝继承</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//构造函数
+			function Person(name) {
+				this.name = name || 'Animal';
+				this.sleep = function() {
+					console.log(this.name + '正在睡觉！');
+				};
+			}
+			//原型上面的方法：
+			Person.prototype.eat = function(food) {
+				console.log(this.name + '正在吃:' + food);
+			}
+			 
+			function Student(name){
+				var person = new Person();
+				for(let i in person) {
+					Student.prototype[i] = person[i];
+				}
+				Student.prototype.name = name || 'Tom';
+			}
+			 
+			var cat = new Student();
+			console.log(cat.name);	//Tom
+			cat.sleep();	//Tom正在睡觉！
+			console.log(cat instanceof Person); 	// false
+			console.log(cat instanceof Student);	 // true
+		</script>
+	</body>
+</html>

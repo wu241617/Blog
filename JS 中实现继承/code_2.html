@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>构造继承</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 构造函数
+			function Person(p_name,age){
+				this.p_name = p_name || 'person';
+				this.age = age || 23;
+				this.sleep = function(){
+					console.log(this.p_name + ' 正在睡觉 ');
+				};
+				this.eat = function(food){
+					console.log(this.p_name + ' 正在吃 ' + food);
+				}
+			}
+			// 核心，将父类的构造函数增加到子类实例中，等于父类的实例属性给子类
+			function Student(s_name){
+				console.log(this)
+				Person.call(this);
+				this.s_name = s_name || 'Tom';
+			}
+			var cat = new Student();
+			console.log(cat.s_name);
+			cat.sleep();
+		</script>
+	</body>
+</html>

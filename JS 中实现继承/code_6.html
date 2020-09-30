@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>寄生组合继承</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//构造函数
+			function Person(name) {
+				this.name = name || 'Person';
+				this.sleep = function() {
+					console.log(this.name + '正在睡觉！');
+				};
+			}
+			//原型上面的方法：
+			Person.prototype.eat = function(food) {
+				console.log(this.name + '正在吃:' + food);
+			}
+			 
+			//核心：通过寄生方式，砍掉父类的实例属性，这样，在调用俩次父类的构造的时候，就不会初始化俩次实例方法/属性，避免了组合继承的缺点。
+			function Cat(name) {
+				Person.call(this);
+				this.name = name || 'Tom';
+			}
+			(function() {
+				var Super = function() {};  //创建一个没有实例的方法类。
+				Super.prototype = Person.prototype;
+				Cat.prototype = new Super();  //将实例作为子类的原型。
+			})();
+			 
+			let cat = new Cat();
+			console.log(cat.name);		//Tom
+			cat.sleep();		//Tom正在睡觉
+			console.log(cat instanceof Person); // true
+			console.log(cat instanceof Cat); //true
+			 
+			Cat.prototype.constructor = Cat;	//修复构造函数
+		</script>
+	</body>
+</html>

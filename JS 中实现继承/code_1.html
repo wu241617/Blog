@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>原型链继承</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 构造函数
+			function Person(name){
+				this.name = name || 'person';
+				this.sleep = function(){
+					console.log(this.name + ' 正在睡觉 ');
+				}
+				Person.prototype.eat = function(food){
+					console.log(this.name + ' 正在吃 ' +food);
+				}
+			}
+			function Student(name){}
+			// 核心，将父类的实例作为子类的原型
+			Student.prototype = new Person();
+			// 或者 Studnet.prototype = Object.create(Person.prototype);
+			var stu1 = new Student();
+			console.log(stu1.name);
+			stu1.eat('bone');
+			stu1.sleep();
+		</script>
+	</body>
+</html>

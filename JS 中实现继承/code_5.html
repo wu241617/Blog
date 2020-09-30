@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>组合继承</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//构造函数
+			function Person(name) {
+				this.name = name || 'Person';
+				this.sleep = function() {
+					console.log(this.name + '正在睡觉！');
+				};
+			}
+			//原型上面的方法：
+			Person.prototype.eat = function(food) {
+				console.log(this.name + '正在吃:' + food);
+			}
+			 
+			//核心：通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用
+			function Cat(name) {
+				Person.call(this);
+				this.name = name || 'Tom';
+			}
+			Cat.prototype = new Person();
+			Cat.prototype.constructor = Cat;
+			 
+			var cat = new Cat();
+			console.log(cat.name);	//Tom
+			cat.sleep();		//Tom正在睡觉
+			console.log(cat instanceof Person); // true
+			console.log(cat instanceof Cat); // true
+		</script>
+	</body>
+</html>

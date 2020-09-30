@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+			}
+
+			html {
+				font-size: 20px;
+			}
+
+			main,
+			section {
+				display: block;
+			}
+
+			main {
+				width: 30rem;
+				height: auto;
+				margin: 2rem auto 0;
+				padding: 1rem;
+				border-radius: 1rem;
+				box-shadow: 0 0 0.5rem 0.5rem #666;
+				font-size: 0.7rem;
+				font-family: 微软雅黑;
+			}
+
+			h3 {
+				width: 100%;
+				height: 2rem;
+				text-align: center;
+				line-height: 2rem;
+				background-color: black;
+				color: white;
+				margin: 0.5rem 0;
+			}
+
+			ul {
+				list-style-position: inside;
+				padding: 1rem;
+			}
+
+			ul>li {
+				margin: 0.5rem 0;
+			}
+		</style>
+		<style>
+			@media (max-width:450px){
+				main{
+					width:auto;
+					height:auto;
+					padding:0;
+					margin:0;
+				}
+			}
+		</style>
+		<title>实现深拷贝</title>
+	</head>
+	<body>
+		<main>
+			<section>
+				<h3>实现深拷贝</h3>
+				<ul>
+					<li>方法一：JSON.parse(JSON.stringify(obj / arr))</li>
+					<li>方法二：手写递归函数</li>
+					<li>方法三：函数库 lodash 中 _.cloneDeep 方法</li>
+					<li>方法四：jQuery 中 extend 方法</li>
+				</ul>
+			</section>
+		</main>
+		<script type="text/javascript">
+			// 方法一：
+			console.log('=== 使用 JSON,parse(JSON.stringify(obj))实现数组和对象的深拷贝 ===');
+			let arr = [1, 3, {
+				name: 'wuhao'
+			}];
+			let newArr = JSON.parse(JSON.stringify(arr));
+			newArr[2].name = 'xiner';
+			console.log(arr[2].name);
+			// 方法二：
+			console.log('=== 手写递归函数 ===');
+
+			function cloneDeep(obj) {
+				// 3.根据obj为对象或者数组，产生一个空的对象或数组，存放数据
+				var newObj = obj instanceof Array ? [] : {};
+					// 1.for...in进入循环
+					for (var key in obj) {
+						// 2.判断对象的第一个属性是否为数组或者对象，如果是，则进入递归
+
+						if (typeof obj[key] === 'object') {
+							newObj[key] = cloneDeep(obj[key]);
+						} else {
+							// 3.如果数据为基本类型，则直接赋值
+							newObj[key] = obj[key];
+						}
+					}
+				// 4.把存放了数据的新对象返回出去
+				return newObj
+			}
+			let person = {
+				name: 'wuhao',
+				age: 23,
+				eat: ['苹果', '香蕉', '山楂']
+			}
+			let newPerson = cloneDeep(person);
+			newPerson.eat[2] = '草莓';
+			console.log(person.eat[2]);
+		</script> 
+	</body>
+</html>
